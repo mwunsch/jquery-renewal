@@ -1,5 +1,5 @@
 describe('jquery-renewal', function () {
-  var 
+  var
     calculateElementWidth = function (el) {
       var marginLeft = parseInt(el.css('marginLeft'), 10),
           marginRight = parseInt(el.css('marginRight'), 10);
@@ -21,7 +21,7 @@ describe('jquery-renewal', function () {
 
       it('should have the carousel object in data', function () {
         var carousel = this.element.data('carousel');
-        expect(typeof carousel).toBe('object'); 
+        expect(typeof carousel).toBe('object');
       });
 
       it('should establish the parent element as a wrapper', function () {
@@ -54,10 +54,52 @@ describe('jquery-renewal', function () {
         expect(this.element.css('left')).toEqual('0px');
       });
 
+      describe('Events', function () {
+        beforeEach(function () {
+          this.carousel = this.element.data('carousel');
+          this.EVENT_ADVANCE = 'renewal.advance';
+          this.EVENT_MOVE = 'renewal.move';
+          this.EVENT_REVERSE = 'renewal.reverse';
+        });
+
+        it('should advance when triggered', function () {
+          spyOn(this.carousel, 'advance');
+          this.element.trigger(this.EVENT_ADVANCE);
+          expect(this.carousel.advance).toHaveBeenCalled();
+        });
+
+        it('should reverse when triggered', function () {
+          spyOn(this.carousel, 'reverse');
+          this.element.trigger(this.EVENT_REVERSE);
+          expect(this.carousel.reverse).toHaveBeenCalled();
+        });
+
+        it('should be trivial to bind to an event', function () {
+          var el;
+          spyOn(this.carousel, 'advance');
+          this.element.bind(this.EVENT_ADVANCE, function (e) {
+            el = $(e.target);
+          });
+          this.element.trigger(this.EVENT_ADVANCE);
+          expect(el).toBe(this.element);
+        });
+
+        it('should trigger movement', function () {
+          var el;
+          this.element.bind(this.EVENT_MOVE, function (e) {
+            el = $(e.target);
+          });
+          this.carousel.moveTo(1, 0);
+          expect(el).toBe(this.element);
+        });
+
+      });
+
       describe('Renewal', function () {
         beforeEach(function () {
           this.carousel = this.element.data('carousel');
           this.carousel.moveTo(0, 0);
+          this.element.clearQueue()
         });
 
         it('should get the configuration', function () {
@@ -108,9 +150,7 @@ describe('jquery-renewal', function () {
 
           it('should move at any speed it would like to', function () {
             var movement = this.carousel.moveTo(1, 500);
-            waitsFor(function () {
-              return !this.element.queue().length;
-            }, 'animation queue to be empty', 505)
+            waits(505)
             runs(function () {
               expect(this.element.css('left')).toEqual('-70px');
             });
