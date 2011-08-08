@@ -1,6 +1,6 @@
 > Capricorn 15's. Born 2244. Enter the Carousel. This is the time of renewal. Be strong and you will be renewed. 
 
-If I am going to make a Carousel plugin for jQuery, it had better make reference to [Logan's Run](http://en.wikipedia.org/wiki/Logan%27s_Run_(1976_film)).
+If I am going to make a Carousel plugin for jQuery, it had better make reference to [Logan's Run](http://en.wikipedia.org/wiki/Logan%27s_Run_%28film%29).
 
 jquery-renewal is a jQuery plugin that makes a carousel. It works kind of like this:
 
