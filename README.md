@@ -54,7 +54,9 @@ Here's how your HTML should be structured:
 
 You call it like this:
 
-    $('.the_carousel').renewal();
+```javascript
+$('.the_carousel').renewal();
+```
 
 ### Under the Hood
 
@@ -62,18 +64,22 @@ You call it like this:
 
 `.the_carousel` becomes the carousel, with styles that look like this:
 
-    .the_carousel {
-      position: relative;
-      width: (the total width of the children of .the_carousel);
-      left: 0;
-    }
+```css
+.the_carousel {
+  position: relative;
+  width: (the total width of the children of .the_carousel);
+  left: 0;
+}
+```
 
 And that's all that happens in terms of styling.
 
 ### API
 
-    var element  = $('.the_carousel').renewal(),
-        carousel = element.data('carousel');
+```javascript
+  var element  = $('.the_carousel').renewal(),
+      carousel = element.data('carousel');
+```
 
 `carousel` is a Renewal object and you can call methods on it:
 
@@ -107,33 +113,37 @@ Beyond calling the methods on the Renewal object itself, you have access to some
 
 #### In practice
 
-    $('button.next').click(function (e) {
-      $('.carousel').trigger('renewal.advance')
-    });
+```javascript
+$('button.next').click(function (e) {
+  $('.carousel').trigger('renewal.advance')
+});
 
-    $('button.previous').click(function (e) {
-      $('.carousel').trigger('renewal.reverse');
-    });
+$('button.previous').click(function (e) {
+  $('.carousel').trigger('renewal.reverse');
+});
 
-    $('.carousel').bind('renewal.move', function (e) {
-      // The carousel has moved!
-    });
+$('.carousel').bind('renewal.move', function (e) {
+  // The carousel has moved!
+});
+```
 
 ## Configuration
 
 jquery-renewal has a few defaults. Overwrite them simply:
 
-    $('.carousel').renewal({
-      accessor: 'carousel',                      // The key to access the Renewal object on the element
-      easing: null,                              // String name of an easing function
-      eventAdvance: 'renewal.advance',           // The event for advancement
-      eventMove: 'renewal.move',                 // The event for movement
-      eventReverse: 'renewal.reverse',           // The event for reversal
-      speed: 150,                                // The duration of animation
-      start: 0,                                  // The starting position of the carousel
-      visible: 1,                                // How many elements should be visible at one time
-      wrapperClass: 'renewal-carousel-container' // The class name given to the wrapper
-    });
+```javascript
+$('.carousel').renewal({
+  accessor: 'carousel',                      // The key to access the Renewal object on the element
+  easing: null,                              // String name of an easing function
+  eventAdvance: 'renewal.advance',           // The event for advancement
+  eventMove: 'renewal.move',                 // The event for movement
+  eventReverse: 'renewal.reverse',           // The event for reversal
+  speed: 150,                                // The duration of animation
+  start: 0,                                  // The starting position of the carousel
+  visible: 1,                                // How many elements should be visible at one time
+  wrapperClass: 'renewal-carousel-container' // The class name given to the wrapper
+});
+```
 
 If `visible` is falsy, the width of the wrapper (`$('.a_wrapper')`), is not affected at all.
 
