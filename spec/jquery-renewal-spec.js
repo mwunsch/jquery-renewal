@@ -76,6 +76,11 @@ describe('jquery-renewal', function () {
           expect(this.carousel.getPosition()).toEqual(0);
         });
 
+        it('should get the element in the current position', function () {
+          var item = this.carousel.getCurrentItem();
+          expect(item).toEqual(this.element.children().eq(0));
+        });
+
         describe('#moveTo', function () {
           it('should move to a specific position', function () {
             var renewal = this.carousel.moveTo(1, 0)
