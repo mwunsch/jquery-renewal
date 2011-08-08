@@ -57,12 +57,16 @@ describe('jquery-renewal', function () {
       describe('Renewal', function () {
         beforeEach(function () {
           this.carousel = this.element.data('carousel');
+          this.carousel.moveTo(0, 0);
+        });
+
+        it('should get the configuration', function () {
+          expect(this.carousel.getConfig()).toBeDefined();
         });
 
         it("should have a length equal to the element's children", function () {
           expect(this.carousel.length).toEqual(this.element.children().length);
         });
-
 
         it('should have a size method that returns the length', function () {
           expect(this.carousel.size()).toEqual(this.element.children().length);
@@ -74,50 +78,70 @@ describe('jquery-renewal', function () {
 
         describe('#moveTo', function () {
           it('should move to a specific position', function () {
-            var renewal = this.carousel.moveTo(1)
+            var renewal = this.carousel.moveTo(1, 0)
             expect(renewal.getPosition()).toEqual(1);
           });
 
           it('should move the left position of the element', function () {
-            this.carousel.moveTo(2);
+            this.carousel.moveTo(2, 0);
             expect(this.element.css('left')).toEqual('-140px');
           });
 
           it('should be chaninable', function () {
-            expect(this.carousel.moveTo(1)).toEqual(this.carousel);
+            expect(this.carousel.moveTo(1, 0)).toEqual(this.carousel);
           });
 
           it('should not move beyond the lower boundary of the list', function () {
-            var movement = this.carousel.moveTo(-2);
+            var movement = this.carousel.moveTo(-2, 0);
             expect(movement.getPosition()).not.toEqual(-2);
           });
 
           it('should not move beyond the upper boundary of the list', function () {
-            var movement = this.carousel.moveTo(5);
+            var movement = this.carousel.moveTo(5, 0);
             expect(movement.getPosition()).not.toEqual(5);
+          });
+
+          it('should move at any speed it would like to', function () {
+            var movement = this.carousel.moveTo(1, 500);
+            waitsFor(function () {
+              return !this.element.queue().length;
+            }, 'animation queue to be empty', 505)
+            runs(function () {
+              expect(this.element.css('left')).toEqual('-70px');
+            });
           });
         });
 
         describe('#advance', function () {
-          afterEach(function () {
-            this.carousel.moveTo(0);
+          beforeEach(function () {
+            this.carousel.moveTo(0, 0);
+            this.DEFAULT_SPEED = 165;
           });
 
           it('should update the position of the carousel by one item', function () {
             this.carousel.advance();
-            expect(this.carousel.getPosition()).toEqual(1);
+            waits(this.DEFAULT_SPEED);
+            runs(function () {
+              expect(this.carousel.getPosition()).toEqual(1);
+            });
           });
 
           it('should update the left position of the element', function () {
             var firstItem = this.element.children(':first'),
                 firstItemWidth = calculateElementWidth(firstItem);
             this.carousel.advance();
-            expect(this.element.css('left')).toEqual('-' + firstItemWidth + 'px');
+            waits(this.DEFAULT_SPEED);
+            runs(function () {
+              expect(this.element.css('left')).toEqual('-' + firstItemWidth + 'px');
+            });
           });
 
           it('should advance two positions', function () {
             this.carousel.advance(2);
-            expect(this.carousel.getPosition()).toEqual(2);
+            waits(this.DEFAULT_SPEED);
+            runs(function () {
+              expect(this.carousel.getPosition()).toEqual(2);
+            });
           });
 
           it('should advance the left position by two item widths', function () {
@@ -126,30 +150,140 @@ describe('jquery-renewal', function () {
                 firstItemWidth = calculateElementWidth(firstItem);
                 secondItemWidth = calculateElementWidth(secondItem);
             this.carousel.advance(2);
-            expect(this.element.css('left')).toEqual('-' + (firstItemWidth + secondItemWidth) + 'px');
+            waits(this.DEFAULT_SPEED);
+            runs(function () {
+              expect(this.element.css('left')).toEqual('-' + (firstItemWidth + secondItemWidth) + 'px');
+            });
           });
 
           it('should not advance beyond the upper boundary', function () {
             this.carousel.advance(5);
-            expect(this.carousel.getPosition()).toEqual(2);
+            waits(this.DEFAULT_SPEED);
+            runs(function () {
+              expect(this.carousel.getPosition()).toEqual(2);
+            });
           });
 
           it('should move backwards when given a negative step', function () {
             this.carousel.advance(2);
             this.carousel.advance(-1);
-            expect(this.carousel.getPosition()).toEqual(1);
+            waits(this.DEFAULT_SPEED);
+            runs(function () {
+              expect(this.carousel.getPosition()).toEqual(1);
+            });
           });
 
           it('should not move beyond the lower boundary', function () {
             this.carousel.advance(2);
             this.carousel.advance(-5);
-            expect(this.carousel.getPosition()).toEqual(0);
+            waits(this.DEFAULT_SPEED);
+            runs(function () {
+              expect(this.carousel.getPosition()).toEqual(0);
+            });
+          });
+
+          it('should be chaninable', function () {
+            waits(this.DEFAULT_SPEED);
+            runs(function () {
+              expect(this.carousel.advance()).toEqual(this.carousel);
+            });
           });
 
         });
 
+        describe('#reverse', function () {
+          beforeEach(function () {
+            this.carousel.moveTo(2, 0);
+            this.DEFAULT_SPEED = 165;
+          });
+
+          it('should move backwards by one item', function () {
+            this.carousel.reverse();
+            waits(this.DEFAULT_SPEED);
+            runs(function () {
+              expect(this.carousel.getPosition()).toEqual(1);
+            });
+          });
+
+          it('should update the left position to move backwards', function () {
+            var lastItem = this.element.children(':last'),
+                secondItem = this.element.children().eq(1),
+                lastItemWidth = calculateElementWidth(lastItem),
+                secondItemWidth = calculateElementWidth(secondItem);
+            waits(this.DEFAULT_SPEED);
+            runs(function () {
+              this.carousel.reverse();
+            });
+            expect(this.element.css('left')).toEqual('-' + (lastItemWidth + secondItemWidth) + 'px');
+          });
+
+          it('should move backwards by two items', function () {
+            this.carousel.reverse(2);
+            waits(this.DEFAULT_SPEED);
+            runs(function () {
+              expect(this.carousel.getPosition()).toEqual(0);
+            });
+          });
+
+          it('should not reverse beyond the lower boundary', function () {
+            this.carousel.reverse(5);
+            waits(this.DEFAULT_SPEED);
+            runs(function () {
+              expect(this.carousel.getPosition()).toEqual(0);
+            });
+          });
+
+          it('should move forwards when given a negative step', function () {
+            this.carousel.reverse(1);
+            this.carousel.reverse(-1);
+            waits(this.DEFAULT_SPEED);
+            runs(function () {
+              expect(this.carousel.getPosition()).toEqual(2);
+            });
+          });
+
+          it('should not reverse beyond the upper boundary', function () {
+            this.carousel.reverse();
+            this.carousel.reverse(-2);
+            waits(this.DEFAULT_SPEED);
+            runs(function () {
+              expect(this.carousel.getPosition()).toEqual(2);
+            });
+          });
+
+          it('should be chaninable', function () {
+            waits(this.DEFAULT_SPEED);
+            runs(function () {
+              expect(this.carousel.reverse()).toEqual(this.carousel);
+            });
+          });
+        });
+
       });
 
+    });
+
+  });
+
+  describe('Overriding configuration', function () {
+    beforeEach(function () {
+      loadFixtures('fixture.html');
+      this.element = $('#carousel');
+      this.element.renewal({
+        speed: 0,
+        visible: null
+      });
+      this.carousel = this.element.data('carousel');
+    });
+
+    it('should have overwritten the speed default', function () {
+      var config = this.carousel.getConfig();
+      expect(config.speed).toEqual(0);
+    });
+
+    it('should have overwritten the visible default', function () {
+      var config = this.carousel.getConfig();
+      expect(config.visible).toBeNull();
     });
 
   });
