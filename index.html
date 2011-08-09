@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>jquery-renewal is a carousel plugin for jquery</title>
+    <style>
+      body {
+        font-family: Helvetica, Arial, sans-serif;
+      }
+      code {
+        font-family: Menlo, Monaco, monospace;
+        font-size: 12px;
+        line-height: 1.4;
+      }
+      h1 {
+        font-size: 14px;
+        font-weight: normal;
+        margin: 10px;
+      }
+      .preamble {
+        width: 40%;
+        margin: 0 auto;
+      }
+
+      .example {
+        background: #F5F5FF;
+        overflow: auto;
+        margin-bottom: 2em;
+      }
+      .result {
+        float: left;
+        width: 50%;
+        background: #fff;
+      }
+      .code {
+        float: right;
+        width: 50%;
+      }
+
+      .things {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .things .thing {
+        list-style: none;
+        margin: 0 10px;
+        float: left;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <div class="preamble">
+      <p>Given markup that looks like this:</p>
+      <pre><code>
+        &lt;div class=&quot;test container&quot;&gt;
+          &lt;ul class=&quot;things&quot;&gt;
+            &lt;li class=&quot;thing&quot;&gt;&lt;img /&gt;&lt;/li&gt;
+            &lt;li class=&quot;thing&quot;&gt;&lt;img /&gt;&lt;/li&gt;
+            &lt;li class=&quot;thing&quot;&gt;&lt;img /&gt;&lt;/li&gt;
+            &lt;li class=&quot;thing&quot;&gt;&lt;img /&gt;&lt;/li&gt;
+            &lt;li class=&quot;thing&quot;&gt;&lt;img /&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/div&gt;
+      </code></pre>
+      <p>and styles that look like this:</p>
+      <pre><code>
+        .things {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+        }
+        .things .thing {
+          list-style: none;
+          margin: 0 10px;
+          float: left;
+        }
+      </pre></code>
+      <p>let's make some carousels.</p>
+    </div>
+
+    <div id="examples" class="examples">
+
+      <div class="example">
+        <div class="result">
+          <div id="carousel-test-1" class="test container">
+            <button class="previous movement">Previous</button>
+            <button class="next movement">Next</button>
+            <ul class="kitten-photos things carousel">
+              <li class="thing"><img src="http://placekitten.com/300/300" class="photo" width="300" height="300" alt="A photo of a kitten in a series of photos of kittens" /><p>1</p></li>
+              <li class="thing"><img src="http://placekitten.com/300/300" class="photo" width="300" height="300" alt="A photo of a kitten in a series of photos of kittens" /><p>2</p></li>
+              <li class="thing"><img src="http://placekitten.com/300/300" class="photo" width="300" height="300" alt="A photo of a kitten in a series of photos of kittens" /><p>3</p></li>
+              <li class="thing"><img src="http://placekitten.com/300/300" class="photo" width="300" height="300" alt="A photo of a kitten in a series of photos of kittens" /><p>4</p></li>
+              <li class="thing"><img src="http://placekitten.com/300/300" class="photo" width="300" height="300" alt="A photo of a kitten in a series of photos of kittens" /><p>5</p></li>
+            </ul>
+          </div>
+        </div>
+        <div class="code">
+          <pre><code>
+          (function (test) {
+            var carousel = test.find('.things');
+            carousel.renewal();
+            test.find('.next').bind('click', function (e) {
+              carousel.trigger('renewal.advance');
+            });
+            test.find('.previous').bind('click', function (e) {
+              carousel.trigger('renewal.reverse');
+            });
+          }($('#carousel-test-1')));
+          </code></pre>
+        </div>
+      </div>
+
+      <div class="example">
+        <div class="result">
+          <div id="carousel-test-2" class="test container">
+            <button class="previous movement">Previous</button>
+            <button class="next movement">Next</button>
+            <ul class="kitten-photos things carousel">
+              <li class="thing"><img src="http://placekitten.com/200/300" class="photo" width="200" height="300" alt="A photo of a kitten in a series of photos of kittens" /> <p>1</p></li>
+              <li class="thing"><img src="http://placekitten.com/200/300" class="photo" width="200" height="300" alt="A photo of a kitten in a series of photos of kittens" /> <p>2</p></li>
+              <li class="thing"><img src="http://placekitten.com/200/300" class="photo" width="200" height="300" alt="A photo of a kitten in a series of photos of kittens" /> <p>3</p></li>
+              <li class="thing"><img src="http://placekitten.com/200/300" class="photo" width="200" height="300" alt="A photo of a kitten in a series of photos of kittens" /> <p>4</p></li>
+              <li class="thing"><img src="http://placekitten.com/200/300" class="photo" width="200" height="300" alt="A photo of a kitten in a series of photos of kittens" /> <p>5</p></li>
+              <li class="thing"><img src="http://placekitten.com/200/300" class="photo" width="200" height="300" alt="A photo of a kitten in a series of photos of kittens" /> <p>6</p></li>
+              <li class="thing"><img src="http://placekitten.com/200/300" class="photo" width="200" height="300" alt="A photo of a kitten in a series of photos of kittens" /> <p>7</p></li>
+              <li class="thing"><img src="http://placekitten.com/200/300" class="photo" width="200" height="300" alt="A photo of a kitten in a series of photos of kittens" /> <p>8</p></li>
+              <li class="thing"><img src="http://placekitten.com/200/300" class="photo" width="200" height="300" alt="A photo of a kitten in a series of photos of kittens" /> <p>9</p></li>
+            </ul>
+          </div>
+        </div>
+        <div class="code">
+          <h1>With 3 items visible and the animation slowed to 500ms.</h1>
+          <pre><code>
+          (function (test) {
+            var carousel = test.find('.things');
+            carousel.renewal({
+              visible: 3,
+              speed: 500
+            });
+            test.find('.next').bind('click', function (e) {
+              carousel.trigger('renewal.advance');
+            });
+            test.find('.previous').bind('click', function (e) {
+              carousel.trigger('renewal.reverse');
+            });
+          }($('#carousel-test-2')));
+          </code></pre>
+        </div>
+      </div>
+
+
+    </div>
+
+    <script type="text/javascript" src="vendor/jquery-1.6.2.js"></script>
+    <script type="text/javascript" src="lib/jquery.renewal.js"></script>
+    <script>
+
+        // Example 1
+        (function (test) {
+          var carousel = test.find('.things');
+          carousel.renewal();
+          test.find('.next').bind('click', function (e) {
+            carousel.trigger('renewal.advance');
+          });
+          test.find('.previous').bind('click', function (e) {
+            carousel.trigger('renewal.reverse');
+          });
+        }($('#carousel-test-1')));
+
+
+        // Example 2
+        (function (test) {
+          var carousel = test.find('.things');
+          carousel.renewal({
+            visible: 3,
+            speed: 500
+          });
+          test.find('.next').bind('click', function (e) {
+            carousel.trigger('renewal.advance');
+          });
+          test.find('.previous').bind('click', function (e) {
+            carousel.trigger('renewal.reverse');
+          });
+        }($('#carousel-test-2')));
+    </script>
+  </body>
+</html>
