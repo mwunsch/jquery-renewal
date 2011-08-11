@@ -330,7 +330,26 @@ describe('jquery-renewal', function () {
       var config = this.carousel.getConfig();
       expect(config.visible).toBeNull();
     });
+  });
 
+  describe('Different start point', function () {
+    beforeEach(function () {
+      loadFixtures('fixture.html');
+      this.element = $('#carousel');
+      this.element.renewal({
+        start: 1,
+        speed: 0
+      });
+      this.carousel = this.element.data('carousel');
+    });
+
+    it('should have a different position from the outset', function () {
+      expect(this.carousel.getPosition()).toEqual(1);
+    });
+
+    it('should start the carousel at that point', function () {
+      expect(this.element.css('left')).toEqual('-70px');
+    });
   });
 
 });
