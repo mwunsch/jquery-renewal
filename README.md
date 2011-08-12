@@ -62,7 +62,7 @@ $('.the_carousel').renewal();
 
 `.a_wrapper` effectively becomes the foreground "window" element in the above illustration. `.a_wrapper` gets an additional class name and `overflow-x: hidden;` and the `width` is restricted to how many elements you want visible.
 
-`.the_carousel` becomes the carousel, with styles that look like this:
+`.the_carousel` becomes the carousel, and these styles are applied:
 
 ```css
 .the_carousel {
