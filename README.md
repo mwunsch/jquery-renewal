@@ -151,10 +151,17 @@ $('.carousel').renewal({
 
 If `visible` is falsy, the width of the wrapper (`$('.a_wrapper')`), is not affected at all.
 
+## Installation
+
+```
+$ wget https://raw.github.com/mwunsch/jquery-renewal/master/lib/jquery.renewal.js
+```
+Put it in a script tag.
 
 ## TODO
 
 * Make better examples
+* Make a homepage
 * Add an option to make carousels circular (infinitly repeating)
 * Add an option to make a vertical carousel
 * More events?
