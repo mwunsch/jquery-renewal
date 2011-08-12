@@ -110,6 +110,10 @@ Beyond calling the methods on the Renewal object itself, you have access to some
       Triggering will call Renewal#reverse
     'renewal.move'
       This is triggered in the call to Renewal#moveTo
+    'renewal.moving'
+      This is triggered before the carousel begins moving
+    'renewal.moved'
+      This is triggered after the carousel has finished it's movement
 
 #### In practice
 
@@ -150,7 +154,8 @@ If `visible` is falsy, the width of the wrapper (`$('.a_wrapper')`), is not affe
 
 ## TODO
 
-* Make a page w/ examples
+* Make better examples
 * Add an option to make carousels circular (infinitly repeating)
 * Add an option to make a vertical carousel
-* Add hooks for callbacks
+* More events?
+
