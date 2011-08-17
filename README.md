@@ -35,7 +35,7 @@ The element in front acts as a window to an element positioned "behind" it. The 
 
 Here are some of the goals of this project:
 
-1. _Good test coverage_. Because we're all professionals here. Specs are written with [Jasmine](http://pivotal.github.com/jasmine/) and [Jamine-jQuery](https://github.com/velesin/jasmine-jquery).
+1. _Good test coverage_. Because we're all professionals here. Specs are written with [Jasmine](http://pivotal.github.com/jasmine/) and [Jasmine-jQuery](https://github.com/velesin/jasmine-jquery).
 2. _Few opinions_. Most carousel plugins do a lot of mucking about on element styles that I think you should handle on your own.
 3. _It doesn't have to be a list_. Any element with children can effectively become a carousel.
 4. _Have an API_. That's really important.
