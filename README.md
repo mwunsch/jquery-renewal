@@ -145,6 +145,7 @@ $('.carousel').renewal({
   speed: 150,                                // The duration of animation
   start: 0,                                  // The starting position of the carousel
   visible: 1,                                // How many elements should be visible at one time
+  circular: false,                           // Whether the carousel should move to beginning/end if advance/reverse is triggered from end/beginning.
   wrapperClass: 'renewal-carousel-container' // The class name given to the wrapper
 });
 ```
