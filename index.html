@@ -150,6 +150,76 @@
         </div>
       </div>
 
+      <div class="example">
+        <div class="result">
+          <div id="carousel-test-3" class="test container">
+            <button class="previous movement">Previous</button>
+            <button class="next movement">Next</button>
+            <ul class="kitten-photos things carousel">
+              <li class="thing"><img src="http://placekitten.com/200/300" class="photo" width="200" height="300" alt="A photo of a kitten in a series of photos of kittens" /> <p>1</p></li>
+              <li class="thing"><img src="http://placekitten.com/200/300" class="photo" width="200" height="300" alt="A photo of a kitten in a series of photos of kittens" /> <p>2</p></li>
+              <li class="thing"><img src="http://placekitten.com/200/300" class="photo" width="200" height="300" alt="A photo of a kitten in a series of photos of kittens" /> <p>3</p></li>
+              <li class="thing"><img src="http://placekitten.com/200/300" class="photo" width="200" height="300" alt="A photo of a kitten in a series of photos of kittens" /> <p>4</p></li>
+              <li class="thing"><img src="http://placekitten.com/200/300" class="photo" width="200" height="300" alt="A photo of a kitten in a series of photos of kittens" /> <p>5</p></li>
+            </ul>
+          </div>
+        </div>
+        <div class="code">
+          <h1>With circular motion.</h1>
+          <pre><code>
+          (function (test) {
+            var carousel = test.find('.things');
+            carousel.renewal({
+              circular: true
+            });
+            test.find('.next').bind('click', function (e) {
+              carousel.trigger('renewal.advance');
+            });
+            test.find('.previous').bind('click', function (e) {
+              carousel.trigger('renewal.reverse');
+            });
+          }($('#carousel-test-3')));
+          </code></pre>
+        </div>
+      </div>
+
+      <div class="example">
+        <div class="result">
+          <div id="carousel-test-4" class="test container">
+            <button class="previous movement">Previous</button>
+            <button class="next movement">Next</button>
+            <ul class="kitten-photos things carousel">
+              <li class="thing"><img src="http://placekitten.com/200/300" class="photo" width="200" height="300" alt="A photo of a kitten in a series of photos of kittens" /> <p>1</p></li>
+              <li class="thing"><img src="http://placekitten.com/200/300" class="photo" width="200" height="300" alt="A photo of a kitten in a series of photos of kittens" /> <p>2</p></li>
+              <li class="thing"><img src="http://placekitten.com/200/300" class="photo" width="200" height="300" alt="A photo of a kitten in a series of photos of kittens" /> <p>3</p></li>
+              <li class="thing"><img src="http://placekitten.com/200/300" class="photo" width="200" height="300" alt="A photo of a kitten in a series of photos of kittens" /> <p>4</p></li>
+              <li class="thing"><img src="http://placekitten.com/200/300" class="photo" width="200" height="300" alt="A photo of a kitten in a series of photos of kittens" /> <p>5</p></li>
+              <li class="thing"><img src="http://placekitten.com/200/300" class="photo" width="200" height="300" alt="A photo of a kitten in a series of photos of kittens" /> <p>6</p></li>
+              <li class="thing"><img src="http://placekitten.com/200/300" class="photo" width="200" height="300" alt="A photo of a kitten in a series of photos of kittens" /> <p>7</p></li>
+              <li class="thing"><img src="http://placekitten.com/200/300" class="photo" width="200" height="300" alt="A photo of a kitten in a series of photos of kittens" /> <p>8</p></li>
+              <li class="thing"><img src="http://placekitten.com/200/300" class="photo" width="200" height="300" alt="A photo of a kitten in a series of photos of kittens" /> <p>9</p></li>
+            </ul>
+          </div>
+        </div>
+        <div class="code">
+          <h1>With 3 items visible and circular motion.</h1>
+          <pre><code>
+          (function (test) {
+            var carousel = test.find('.things');
+            carousel.renewal({
+              visible: 3,
+              circular: true
+            });
+            test.find('.next').bind('click', function (e) {
+              carousel.trigger('renewal.advance');
+            });
+            test.find('.previous').bind('click', function (e) {
+              carousel.trigger('renewal.reverse');
+            });
+          }($('#carousel-test-4')));
+          </code></pre>
+        </div>
+      </div>
 
     </div>
 
@@ -184,6 +254,38 @@
             carousel.trigger('renewal.reverse');
           });
         }($('#carousel-test-2')));
+
+
+        // Example 3
+        (function (test) {
+          var carousel = test.find('.things');
+          carousel.renewal({
+            circular: true
+          });
+          test.find('.next').bind('click', function (e) {
+            carousel.trigger('renewal.advance');
+          });
+          test.find('.previous').bind('click', function (e) {
+            carousel.trigger('renewal.reverse');
+          });
+        }($('#carousel-test-3')));
+
+
+        // Example 4
+        (function (test) {
+          var carousel = test.find('.things');
+          carousel.renewal({
+            visible: 3,
+            circular: true
+          });
+          test.find('.next').bind('click', function (e) {
+            carousel.trigger('renewal.advance');
+          });
+          test.find('.previous').bind('click', function (e) {
+            carousel.trigger('renewal.reverse');
+          });
+        }($('#carousel-test-4')));
+
     </script>
   </body>
 </html>

@@ -402,4 +402,37 @@ describe('jquery-renewal', function () {
     });
 
   });
+
+  describe('Circular, more than one visible', function () {
+    beforeEach(function () {
+      loadFixtures('fixture-30.html');
+      this.element = $('#carousel');
+      this.element.renewal({
+        speed: 0,
+        circular: true,
+        visible: 5
+      });
+      this.carousel = this.element.data('carousel');
+    });
+
+    it('should have a position at the end after reverse is called when index is 1', function () {
+      this.carousel.reverse();
+      waits(this.DEFAULT_SPEED);
+      runs(function () {
+        expect(this.carousel.getPosition()).toEqual(this.carousel.length-5);
+      });
+    });
+
+    it('should have a position at the beginning after advance is called when index is at end', function () {
+      this.carousel.moveTo(this.carousel.length-5, 0);
+      waits(this.DEFAULT_SPEED);
+      this.carousel.advance();
+      waits(this.DEFAULT_SPEED);
+      runs(function () {
+        expect(this.carousel.getPosition()).toEqual(0);
+      });
+    });
+
+  });
+
 });
