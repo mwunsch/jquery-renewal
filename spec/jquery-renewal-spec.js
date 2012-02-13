@@ -352,4 +352,54 @@ describe('jquery-renewal', function () {
     });
   });
 
+  describe('Circular slideshow', function () {
+    beforeEach(function () {
+      loadFixtures('fixture.html');
+      this.element = $('#carousel');
+      this.element.renewal({
+        speed: 0,
+        circular: true
+      });
+      this.carousel = this.element.data('carousel');
+    });
+
+    it('should have a position at the end after reverse is called when index is 1', function () {
+      this.carousel.reverse();
+      waits(this.DEFAULT_SPEED);
+      runs(function () {
+        expect(this.carousel.getPosition()).toEqual(this.carousel.length-1);
+      });
+    });
+
+    it('should advance one position, even when circular is true', function () {
+      this.carousel.moveTo(0, 0);
+      waits(this.DEFAULT_SPEED);
+      this.carousel.advance();
+      waits(this.DEFAULT_SPEED);
+      runs(function () {
+        expect(this.carousel.getPosition()).toEqual(1);
+      });
+    });
+
+    it('should reverse one position, even when circular is true', function () {
+      this.carousel.moveTo(this.carousel.length-1, 0);
+      waits(this.DEFAULT_SPEED);
+      this.carousel.reverse();
+      waits(this.DEFAULT_SPEED);
+      runs(function () {
+        expect(this.carousel.getPosition()).toEqual(this.carousel.length-2);
+      });
+    });
+
+    it('should have a position at the beginning after advance is called when index is at end', function () {
+      this.carousel.moveTo(this.carousel.length-1, 0);
+      waits(this.DEFAULT_SPEED);
+      this.carousel.advance();
+      waits(this.DEFAULT_SPEED);
+      runs(function () {
+        expect(this.carousel.getPosition()).toEqual(0);
+      });
+    });
+
+  });
 });
