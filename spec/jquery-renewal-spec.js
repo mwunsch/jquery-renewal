@@ -435,4 +435,27 @@ describe('jquery-renewal', function () {
 
   });
 
+
+  describe('Renewal possible in carousel', function () {
+    beforeEach(function () {
+      loadFixtures('fixture-30.html');
+      this.element = $('#carousel');
+      this.element.renewal({
+        speed: 0,
+        circular: true
+      });
+      this.carousel = this.element.data('carousel');
+    });
+
+      it('should achieve renewal when advance is called when current position == 29', function () {
+        this.carousel.moveTo(29, 0);
+        waits(this.DEFAULT_SPEED);
+        this.carousel.advance();
+        runs(function () {
+          expect(this.carousel.getPosition()).toEqual(0);
+        });
+      });
+
+  });
+
 });
