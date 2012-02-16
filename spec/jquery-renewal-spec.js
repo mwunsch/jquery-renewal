@@ -356,13 +356,13 @@ describe('jquery-renewal', function () {
     });
   });
 
-  describe('Circular slideshow', function () {
+  describe('Repeat slideshow', function () {
     beforeEach(function () {
       loadFixtures('fixture.html');
       this.element = $('#carousel');
       this.element.renewal({
         speed: 0,
-        circular: true
+        repeat: true
       });
       this.carousel = this.element.data('carousel');
     });
@@ -375,7 +375,7 @@ describe('jquery-renewal', function () {
       });
     });
 
-    it('should advance one position, even when circular is true', function () {
+    it('should advance one position, even when repeat is true', function () {
       this.carousel.moveTo(0, 0);
       waits(this.DEFAULT_SPEED);
       this.carousel.advance();
@@ -385,7 +385,7 @@ describe('jquery-renewal', function () {
       });
     });
 
-    it('should reverse one position, even when circular is true', function () {
+    it('should reverse one position, even when repeat is true', function () {
       this.carousel.moveTo(this.carousel.length-1, 0);
       waits(this.DEFAULT_SPEED);
       this.carousel.reverse();
@@ -407,13 +407,13 @@ describe('jquery-renewal', function () {
 
   });
 
-  describe('Circular, more than one visible', function () {
+  describe('Repeat, more than one visible', function () {
     beforeEach(function () {
       loadFixtures('fixture-30.html');
       this.element = $('#carousel');
       this.element.renewal({
         speed: 0,
-        circular: true,
+        repeat: true,
         visible: 5
       });
       this.carousel = this.element.data('carousel');
@@ -446,7 +446,7 @@ describe('jquery-renewal', function () {
       this.element = $('#carousel');
       this.element.renewal({
         speed: 0,
-        circular: true
+        repeat: true
       });
       this.carousel = this.element.data('carousel');
     });

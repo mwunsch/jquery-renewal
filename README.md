@@ -1,4 +1,4 @@
-> Capricorn 15's. Born 2244. Enter the Carousel. This is the time of renewal. Be strong and you will be renewed. 
+> Capricorn 15's. Born 2244. Enter the Carousel. This is the time of renewal. Be strong and you will be renewed.
 
 If I am going to make a Carousel plugin for jQuery, it had better make reference to [Logan's Run](http://en.wikipedia.org/wiki/Logan%27s_Run_%28film%29).
 
@@ -13,8 +13,8 @@ jquery-renewal is a jQuery plugin that makes a carousel. It works kind of like t
     |  |          |                                     |
     |  |          |                                     |
     +--|----------|-------------------------------------+
-     \ |        \ | 
-      \|         \| 
+     \ |        \ |
+      \|         \|
        +----------+
 
 The element in front acts as a window to an element positioned "behind" it. The element can move behind it, by using a couple of methods.
@@ -27,8 +27,8 @@ The element in front acts as a window to an element positioned "behind" it. The 
         |          |          <-       |
         |          |                   |
     ----|----------|-------------------+
-      \ |        \ | 
-       \|         \| 
+      \ |        \ |
+       \|         \|
         +----------+
 
 ## Why yet another jQuery carousel plugin?
@@ -145,7 +145,7 @@ $('.carousel').renewal({
   speed: 150,                                // The duration of animation
   start: 0,                                  // The starting position of the carousel
   visible: 1,                                // How many elements should be visible at one time
-  circular: false,                           // Whether the carousel should move to beginning/end if advance/reverse is triggered from end/beginning.
+  repeat: false,                             // Whether the carousel should move to beginning/end if advance/reverse is triggered from end/beginning.
   wrapperClass: 'renewal-carousel-container' // The class name given to the wrapper
 });
 ```

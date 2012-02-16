@@ -50,7 +50,7 @@
     </style>
   </head>
   <body>
-    
+
     <div class="preamble">
       <p>Given markup that looks like this:</p>
       <pre><code>
@@ -165,12 +165,12 @@
           </div>
         </div>
         <div class="code">
-          <h1>With circular motion.</h1>
+          <h1>With repeat on.</h1>
           <pre><code>
           (function (test) {
             var carousel = test.find('.things');
             carousel.renewal({
-              circular: true
+              repeat: true
             });
             test.find('.next').bind('click', function (e) {
               carousel.trigger('renewal.advance');
@@ -202,13 +202,13 @@
           </div>
         </div>
         <div class="code">
-          <h1>With 3 items visible and circular motion.</h1>
+          <h1>With 3 items visible and repeat on.</h1>
           <pre><code>
           (function (test) {
             var carousel = test.find('.things');
             carousel.renewal({
               visible: 3,
-              circular: true
+              repeat: true
             });
             test.find('.next').bind('click', function (e) {
               carousel.trigger('renewal.advance');
@@ -260,7 +260,7 @@
         (function (test) {
           var carousel = test.find('.things');
           carousel.renewal({
-            circular: true
+            repeat: true
           });
           test.find('.next').bind('click', function (e) {
             carousel.trigger('renewal.advance');
@@ -276,7 +276,7 @@
           var carousel = test.find('.things');
           carousel.renewal({
             visible: 3,
-            circular: true
+            repeat: true
           });
           test.find('.next').bind('click', function (e) {
             carousel.trigger('renewal.advance');
