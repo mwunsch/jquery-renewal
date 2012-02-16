@@ -15,6 +15,10 @@ describe('jquery-renewal', function () {
         this.element.renewal();
       });
 
+      it('should reference one DOM element', function () {
+        expect(this.element.length).toBe(1);
+      });
+
       it('should have a carousel data key', function () {
         expect(this.element).toHaveData('carousel');
       });
