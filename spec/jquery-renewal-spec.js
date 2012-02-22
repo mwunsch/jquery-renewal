@@ -483,6 +483,10 @@ describe('jquery-renewal', function () {
           expect(config.infinite).toEqual(true);
         });
 
+        it('should have a size that does not include the clones or empty elemnts', function () {
+          expect(this.carousel.size()).toEqual(this.element.children(":not(.cloned, .empty)").length);
+        });
+
         it('should have cloned the first child', function () {
           expect( this.element.children(':last').hasClass('cloned') && this.element.children(':last').hasClass('first') ).toBe(true);
         });
