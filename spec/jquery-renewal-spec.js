@@ -154,7 +154,7 @@ describe('jquery-renewal', function () {
 
           it('should move at any speed it would like to', function () {
             var movement = this.carousel.moveTo(1, 500);
-            waits(505);
+            waits(600);
             runs(function () {
               expect(this.element.css('left')).toEqual('-70px');
             });
@@ -164,7 +164,7 @@ describe('jquery-renewal', function () {
         describe('#advance', function () {
           beforeEach(function () {
             this.carousel.moveTo(0, 0);
-            this.DEFAULT_SPEED = 165;
+            this.DEFAULT_SPEED = 300;
           });
 
           it('should update the position of the carousel by one item', function () {
@@ -243,7 +243,7 @@ describe('jquery-renewal', function () {
         describe('#reverse', function () {
           beforeEach(function () {
             this.carousel.moveTo(2, 0);
-            this.DEFAULT_SPEED = 165;
+            this.DEFAULT_SPEED = 300;
           });
 
           it('should move backwards by one item', function () {
@@ -475,7 +475,7 @@ describe('jquery-renewal', function () {
             speed : 50
           });
           this.carousel = this.element.data('carousel');
-          this.DEFAULT_SPEED = 165;
+          this.DEFAULT_SPEED = 300;
         });
 
         it('should have infinite active', function () {
