@@ -529,7 +529,7 @@ describe('jquery-renewal', function () {
             speed : 50
           });
           this.carousel = this.element.data('carousel');
-          this.DEFAULT_SPEED = 165;
+          this.DEFAULT_SPEED = 300;
         });
 
         it('should have infinite active', function () {
