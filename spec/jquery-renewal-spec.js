@@ -103,7 +103,7 @@ describe('jquery-renewal', function () {
         beforeEach(function () {
           this.carousel = this.element.data('carousel');
           this.carousel.moveTo(0, 0);
-          this.element.clearQueue()
+          this.element.clearQueue();
         });
 
         it('should get the configuration', function () {
@@ -129,7 +129,7 @@ describe('jquery-renewal', function () {
 
         describe('#moveTo', function () {
           it('should move to a specific position', function () {
-            var renewal = this.carousel.moveTo(1, 0)
+            var renewal = this.carousel.moveTo(1, 0);
             expect(renewal.getPosition()).toEqual(1);
           });
 
@@ -154,7 +154,7 @@ describe('jquery-renewal', function () {
 
           it('should move at any speed it would like to', function () {
             var movement = this.carousel.moveTo(1, 500);
-            waits(505)
+            waits(505);
             runs(function () {
               expect(this.element.css('left')).toEqual('-70px');
             });
@@ -462,4 +462,229 @@ describe('jquery-renewal', function () {
 
   });
 
-});
+  describe('Infinity Scroll', function() {
+    describe('With Animation', function () {
+      describe('Showing one', function () {
+        beforeEach(function () {
+          loadFixtures('fixture.html');
+          this.element = $('#carousel');
+          this.element.renewal({
+            infinite : true,
+            visible : 1,
+            start : 0,
+            speed : 50
+          });
+          this.carousel = this.element.data('carousel');
+          this.DEFAULT_SPEED = 165;
+        });
+
+        it('should have infinite active', function () {
+          var config = this.carousel.getConfig();
+          expect(config.infinite).toEqual(true);
+        });
+
+        it('should have cloned the first child', function () {
+          expect( this.element.children(':last').hasClass('cloned') && this.element.children(':last').hasClass('first') ).toBe(true);
+        });
+
+        it('should have cloned the last child', function () {
+          expect( this.element.children(':first').hasClass('cloned') && this.element.children(':first').hasClass('last') ).toBe(true);
+        });
+
+        it('should wrap backwards', function () {
+          this.carousel.moveTo(0);
+          this.carousel.reverse();
+          waits(165);
+
+          runs( function running () {
+            expect(this.carousel.getPosition()).toEqual(2);
+          });
+        });
+
+        it('should wrap forwards', function () {
+          var children = this.element.children().not(".cloned").length;
+
+          this.carousel.moveTo(children - 1);
+          this.carousel.advance(1);
+          waits(this.DEFAULT_SPEED);
+
+          runs(function running () {
+            expect(this.carousel.getPosition()).toBe(0);
+          });
+        });
+      });
+
+      describe('Showing five', function () {
+        beforeEach(function () {
+          loadFixtures('fixture-12.html');
+          this.element = $('#carousel');
+          this.element.renewal({
+            infinite : true,
+            visible : 5,
+            start : 0,
+            speed : 50
+          });
+          this.carousel = this.element.data('carousel');
+          this.DEFAULT_SPEED = 165;
+        });
+
+        it('should have infinite active', function () {
+          var config = this.carousel.getConfig();
+          expect(config.infinite).toEqual(true);
+        });
+
+        it('should have cloned the first page', function () {
+          var pass = true,
+              items = this.element.children();
+
+          pass = ($(items[5]).hasClass('one') && $(items[20]).hasClass('one') && $(items[20]).hasClass('cloned'));
+          pass = pass && ($(items[6]).hasClass('two') && $(items[21]).hasClass('two') && $(items[21]).hasClass('cloned'));
+          pass = pass && ($(items[7]).hasClass('three') && $(items[22]).hasClass('three') && $(items[22]).hasClass('cloned'));
+          pass = pass && ($(items[8]).hasClass('four') && $(items[23]).hasClass('four') && $(items[23]).hasClass('cloned'));
+          pass = pass && ($(items[9]).hasClass('five') && $(items[24]).hasClass('five') && $(items[24]).hasClass('cloned'));
+
+          expect(pass).toBe(true);
+        });
+
+        it('should have cloned the last page', function () {
+         var pass = true,
+              items = this.element.children();
+
+          pass = ($(items[15]).hasClass('eleven') && $(items[0]).hasClass('eleven') && $(items[0]).hasClass('cloned'));
+          pass = pass && ($(items[16]).hasClass('twelve') && $(items[1]).hasClass('twelve') && $(items[1]).hasClass('cloned'));
+          pass = pass && ($(items[17]).hasClass('empty') && $(items[2]).hasClass('empty') && $(items[2]).hasClass('cloned'));
+          pass = pass && ($(items[18]).hasClass('empty') && $(items[3]).hasClass('empty') && $(items[3]).hasClass('cloned'));
+          pass = pass && ($(items[19]).hasClass('empty') && $(items[4]).hasClass('empty') && $(items[4]).hasClass('cloned'));
+
+          expect(pass).toBe(true);
+        });
+
+        it('should wrap backwards', function () {
+          this.carousel.moveTo(0);
+          this.carousel.reverse();
+          waits(165);
+
+          runs( function running () {
+            expect(this.carousel.getPosition()).toEqual(10);
+          });
+        });
+
+        it('should wrap forwards', function () {
+          var children = this.element.children().not(".cloned").length;
+
+          this.carousel.moveTo(children - 1);
+          this.carousel.advance(1);
+          waits(this.DEFAULT_SPEED);
+
+          runs(function running () {
+            expect(this.carousel.getPosition()).toBe(0);
+          });
+        });
+
+      }); // end showing five
+    }); // end with animation
+
+    describe('Without Animation', function () {
+      describe('Showing one', function () {
+        beforeEach(function () {
+          loadFixtures('fixture.html');
+          this.element = $('#carousel');
+          this.element.renewal({
+            infinite : true,
+            visible : 1,
+            start : 0,
+            speed : null
+          });
+          this.carousel = this.element.data('carousel');
+        });
+
+        it('should have infinite active', function () {
+          var config = this.carousel.getConfig();
+          expect(config.infinite).toEqual(true);
+        });
+
+        it('should have cloned the first child', function () {
+          expect( this.element.children(':last').hasClass('cloned') && this.element.children(':last').hasClass('first') ).toBe(true);
+        });
+
+        it('should have cloned the last child', function () {
+          expect( this.element.children(':first').hasClass('cloned') && this.element.children(':first').hasClass('last') ).toBe(true);
+        });
+
+        it('should wrap backwards', function () {
+          this.carousel.moveTo(0);
+          this.carousel.reverse();
+          expect(this.carousel.getPosition()).toEqual(2);
+        });
+
+        it('should wrap forwards', function () {
+          var children = this.element.children().not(".cloned").length;
+
+          this.carousel.moveTo(children - 1);
+          this.carousel.advance(1);
+          expect(this.carousel.getPosition()).toBe(0);
+        });
+      });
+
+      describe('Showing five', function () {
+        beforeEach(function () {
+          loadFixtures('fixture-12.html');
+          this.element = $('#carousel');
+          this.element.renewal({
+            infinite : true,
+            visible : 5,
+            start : 0,
+            speed : null
+          });
+          this.carousel = this.element.data('carousel');
+        });
+
+        it('should have infinite active', function () {
+          var config = this.carousel.getConfig();
+          expect(config.infinite).toEqual(true);
+        });
+
+        it('should have cloned the first page', function () {
+          var pass = true,
+              items = this.element.children();
+
+          pass = ($(items[5]).hasClass('one') && $(items[20]).hasClass('one') && $(items[20]).hasClass('cloned'));
+          pass = pass && ($(items[6]).hasClass('two') && $(items[21]).hasClass('two') && $(items[21]).hasClass('cloned'));
+          pass = pass && ($(items[7]).hasClass('three') && $(items[22]).hasClass('three') && $(items[22]).hasClass('cloned'));
+          pass = pass && ($(items[8]).hasClass('four') && $(items[23]).hasClass('four') && $(items[23]).hasClass('cloned'));
+          pass = pass && ($(items[9]).hasClass('five') && $(items[24]).hasClass('five') && $(items[24]).hasClass('cloned'));
+
+          expect(pass).toBe(true);
+        });
+
+        it('should have cloned the last page', function () {
+         var pass = true,
+              items = this.element.children();
+
+          pass = ($(items[15]).hasClass('eleven') && $(items[0]).hasClass('eleven') && $(items[0]).hasClass('cloned'));
+          pass = pass && ($(items[16]).hasClass('twelve') && $(items[1]).hasClass('twelve') && $(items[1]).hasClass('cloned'));
+          pass = pass && ($(items[17]).hasClass('empty') && $(items[2]).hasClass('empty') && $(items[2]).hasClass('cloned'));
+          pass = pass && ($(items[18]).hasClass('empty') && $(items[3]).hasClass('empty') && $(items[3]).hasClass('cloned'));
+          pass = pass && ($(items[19]).hasClass('empty') && $(items[4]).hasClass('empty') && $(items[4]).hasClass('cloned'));
+
+          expect(pass).toBe(true);
+        });
+
+        it('should wrap backwards', function () {
+          this.carousel.moveTo(0);
+          this.carousel.reverse();
+          expect(this.carousel.getPosition()).toEqual(10);
+        });
+
+        it('should wrap forwards', function () {
+          var children = this.element.children().not(".cloned").length;
+
+          this.carousel.moveTo(children - 1);
+          this.carousel.advance(1);
+          expect(this.carousel.getPosition()).toBe(0);
+        });
+
+      }); // end showing five
+    }); // end without animation
+  }); // end infinity scroll
+}); // end jquery-renewal
