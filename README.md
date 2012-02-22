@@ -146,11 +146,14 @@ $('.carousel').renewal({
   start: 0,                                  // The starting position of the carousel
   visible: 1,                                // How many elements should be visible at one time
   repeat: false,                             // Whether the carousel should move to beginning/end if advance/reverse is triggered from end/beginning.
+  infinite: false,                           // Whether the carousel should infinitely continue in one direction
   wrapperClass: 'renewal-carousel-container' // The class name given to the wrapper
 });
 ```
 
 If `visible` is falsy, the width of the wrapper (`$('.a_wrapper')`), is not affected at all.
+
+If `infinite` is true, the first carousel child will be used to create empty placeholders for `carousel.length % visible`.
 
 ## Installation
 
@@ -163,7 +166,6 @@ Put it in a script tag.
 
 * Make better examples
 * Make a homepage
-* Add an option to make carousels circular (infinitly repeating)
 * Add an option to make a vertical carousel
 * More events?
 
