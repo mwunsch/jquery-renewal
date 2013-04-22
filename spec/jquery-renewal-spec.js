@@ -1,8 +1,17 @@
 describe('jquery-renewal', function () {
   var
     calculateElementWidth = function (el) {
-      var marginLeft = parseInt(el.css('marginLeft'), 10),
-          marginRight = parseInt(el.css('marginRight'), 10);
+      var
+        cssMarginLeft,
+        marginLeft,
+        cssMarginRight,
+        marginRight;
+
+      cssMarginLeft = el.css('marginLeft');
+      cssMarginRight = el.css('marginRight');
+      marginLeft = (cssMarginLeft !== 'auto') ? parseInt(cssMarginLeft, 10) : 0;
+      marginRight = (cssMarginRight !== 'auto') ? parseInt(cssMarginRight, 10) : 0;
+
       return el.outerWidth() + marginLeft + marginRight;
     };
 
@@ -352,4 +361,39 @@ describe('jquery-renewal', function () {
     });
   });
 
+  describe('Carousel element have no margin', function () {
+    beforeEach(function () {
+      loadFixtures('fixture-no-margin.html');
+      this.element = $('#carousel');
+      this.element.renewal({
+        start: 1,
+        speed: 0
+      });
+      this.carousel = this.element.data('carousel');
+    });
+
+    it('should constrain the width of the wrapper', function () {
+      var firstItem = this.element.children(':first'),
+          wrapper = this.element.parent(),
+          firstItemWidth = calculateElementWidth(firstItem);
+      expect(wrapper.width()).toEqual(firstItemWidth);
+    });
+
+    describe('#moveTo', function () {
+
+      it('should move the left position of the element', function () {
+        this.carousel.moveTo(2, 0);
+        expect(this.element.css('left')).toEqual('-100px');
+      });
+
+      it('should move at any speed it would like to', function () {
+        var movement = this.carousel.moveTo(1, 500);
+        waits(1000);
+        runs(function () {
+          expect(this.element.css('left')).toEqual('-50px');
+        });
+      });
+    }); // #moveTo
+
+  }); // no margin
 });
